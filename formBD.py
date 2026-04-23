@@ -1,4 +1,5 @@
 import flet as ft
+import sqlite3
 
 def main(page: ft.Page): 
     page.title = "Mini formulario" 
@@ -8,14 +9,30 @@ def main(page: ft.Page):
 
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    
+    conn = sqlite3.connect("datos.db")
+    
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS usuarios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT,
+            correo TEXT,
+            edad INTEGER
+        )
+    """)
+    
+    conn.commit()
+
 
     nombre = ft.TextField(label="Nombre", width=250) 
     correo = ft.TextField(label="Correo", width=250) 
     edad = ft.TextField(label="Edad", width=250) 
 
     resultado = ft.Text("", size=14, text_align=ft.TextAlign.CENTER)
-
-    def enviar(e):
+    
+    def guardar(e):
         if not nombre.value or not correo.value or not edad.value:
             resultado.value = "⚠️ Todos los campos son obligatorios"
             resultado.color = "red"
@@ -23,15 +40,20 @@ def main(page: ft.Page):
             resultado.value = "⚠️ La edad debe ser un número"
             resultado.color = "red"
         else:
-            resultado.value = f"✅ Hola {nombre.value}, registro exitoso"
+            cursor.execute("INSERT INTO usuarios (nombre, correo, edad) VALUES (?, ?, ?)", 
+                        (nombre.value, correo.value, int(edad.value)))
+            conn.commit()
+            
+            resultado.value = f"✅ Datos guardados en la db"
             resultado.color = "green"
 
             nombre.value = ""
             correo.value = ""
             edad.value = ""
 
-        page.update() 
-    boton = ft.Button("Enviar", on_click=enviar)
+        page.update()
+
+    boton = ft.ElevatedButton("Guardar", on_click=guardar)
 
     formulario = ft.Container(
         content=ft.Column(

@@ -4,14 +4,14 @@ def main(page: ft.Page):
     page.title = "Mini formulario" 
     page.window_width = 350 
     page.window_height = 500
-    page.bgcolor = "limeAccent100"
+    page.bgcolor = "black"
 
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-    nombre = ft.TextField(label="Nombre", width=250) 
-    correo = ft.TextField(label="Correo", width=250) 
-    edad = ft.TextField(label="Edad", width=250) 
+    nombre = ft.TextField(prefix_icon=ft.Icons.PERSON, label="Nombre", width=250, border_color="lightBlueAccent") 
+    correo = ft.TextField(prefix_icon=ft.Icons.EMAIL, label="Correo", width=250, border_color="lightBlueAccent") 
+    edad = ft.TextField(prefix_icon=ft.Icons.CALENDAR_TODAY, label="Edad", width=250, border_color="lightBlueAccent") 
 
     resultado = ft.Text("", size=14, text_align=ft.TextAlign.CENTER)
 
