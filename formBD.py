@@ -5,7 +5,7 @@ def main(page: ft.Page):
     page.title = "Mini formulario" 
     page.window_width = 350 
     page.window_height = 500
-    page.bgcolor = "limeAccent100"
+    page.bgcolor = "black"
 
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -26,9 +26,9 @@ def main(page: ft.Page):
     conn.commit()
 
 
-    nombre = ft.TextField(label="Nombre", width=250) 
-    correo = ft.TextField(label="Correo", width=250) 
-    edad = ft.TextField(label="Edad", width=250) 
+    nombre = ft.TextField(prefix_icon=ft.Icons.PERSON,label="Nombre", width=250, border_color=ft.Colors.GREEN_200) 
+    correo = ft.TextField(prefix_icon=ft.Icons.EMAIL,label="Correo", width=250, border_color=ft.Colors.GREEN_200) 
+    edad = ft.TextField(prefix_icon=ft.Icons.CALENDAR_TODAY,label="Edad", width=250, border_color=ft.Colors.GREEN_200) 
 
     resultado = ft.Text("", size=14, text_align=ft.TextAlign.CENTER)
     
@@ -53,12 +53,12 @@ def main(page: ft.Page):
 
         page.update()
 
-    boton = ft.ElevatedButton("Guardar", on_click=guardar)
+    boton = ft.ElevatedButton("Guardar", on_click=guardar, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN_400, color=ft.Colors.WHITE))
 
     formulario = ft.Container(
         content=ft.Column(
             controls=[ 
-                ft.Text("Formulario", size=20, weight="bold"),
+                ft.Text("Formulario", size=20, weight="bold", color=ft.Colors.GREEN_700),
                 nombre,
                 correo,
                 edad,
@@ -70,7 +70,8 @@ def main(page: ft.Page):
         ),
         padding=20,
         border_radius=15,
-        bgcolor=ft.Colors.GREY_100,
+        bgcolor=ft.Colors.GREY_800,
+        border=ft.border.all(2, "green"),
         width=300
     )
     
