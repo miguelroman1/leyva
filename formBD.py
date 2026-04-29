@@ -10,7 +10,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     
-    conn = sqlite3.connect("datos.db")
+    conn = sqlite3.connect("bd.sqlite")
     
     cursor = conn.cursor()
     
